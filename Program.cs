@@ -6,49 +6,56 @@ namespace Main;
 
 internal static class Program
 {
-    const int screenWidth = 1400;
-    const int screenHeight = 800;
-
-    const int GL_ONE_MINUS_DST_COLOR = 0x0307;
-    const int GL_ONE_MINUS_SRC_ALPHA = 0x0303;
-    const int GL_FUNC_ADD = 0x8006;
-
     [System.STAThread]
     public static void Main()
     {
-        Raylib.InitWindow(screenWidth, screenHeight, "Hello World");
-
-        Player player = new Player(new Vector2(screenWidth / 2, screenHeight / 2));
-
+        Raylib.InitWindow(GameConfig.WindowWidth, GameConfig.WindowHeight, GameConfig.WindowTitle);
         Raylib.HideCursor();
-        Sprite crosshair = new Sprite("Resources/crosshair.png", new Vector2(0, 0), 1);
+
+        Crosshair crosshair = new Crosshair();
+        TileMap tileMap = new TileMap(128, 128);
+        Player player = new Player(new Vector2(GameConfig.CenterWidth, GameConfig.CenterHeight));
+
+        Camera2D camera = new Camera2D();
+        camera.Target = player.position;
+        camera.Offset = new Vector2(GameConfig.CenterWidth, GameConfig.CenterHeight);
+        camera.Rotation = 0.0f;
+        camera.Zoom = 1.0f;
+
+        TileDatabase.Load();
+        tileMap.GenerateWorld();
 
         while (!Raylib.WindowShouldClose())
         {
             float delta = Raylib.GetFrameTime();
-            Vector2 mousePos = Raylib.GetMousePosition();
 
-            crosshair.position = mousePos;
+            crosshair.Update();
+            player.Update(camera, delta);
 
-            player.Update(mousePos, delta);
+            camera.Target = player.position;
 
             Raylib.BeginDrawing();
             Raylib.ClearBackground(Color.White);
 
-            Raylib.DrawCircle(100, 100, 50, Color.Red);
+            Raylib.BeginMode2D(camera);
 
+            Raylib.DrawCircle(100, 100, 50, Color.Red);
+            tileMap.Draw();
             player.Draw();
 
-            Rlgl.SetBlendFactors(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA, GL_FUNC_ADD);
-            Raylib.BeginBlendMode(BlendMode.Custom);
+            Raylib.EndMode2D();
+
             crosshair.Draw();
-            Raylib.EndBlendMode();
 
             Raylib.EndDrawing();
         }
-        
-        player.Unload();
+
+        TileDatabase.Unload();
+
         crosshair.Unload();
+        tileMap.Unload();
+        player.Unload();
+        
 
         Raylib.CloseWindow();
     }

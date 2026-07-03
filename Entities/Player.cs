@@ -5,9 +5,8 @@ namespace Main;
 
 public class Player
 {
-    float speed = 200;
-
-    Vector2 position;
+    public Vector2 position;
+    public float speed = 250;
 
     Sprite playerSprite;
     Sprite handsSprite;
@@ -19,8 +18,10 @@ public class Player
         handsSprite = new Sprite("Resources/player_hands.png", position, 3);
     }
 
-    public void Update(Vector2 mousePos, float delta)
+    public void Update(Camera2D camera, float delta)
     {
+        Vector2 mouseScreenPos = Raylib.GetMousePosition();
+        Vector2 mouseWorldPos = Raylib.GetScreenToWorld2D(mouseScreenPos, camera);
         Vector2 direction = Vector2.Zero;
 
         if (Raylib.IsKeyDown(KeyboardKey.W))
@@ -45,8 +46,8 @@ public class Player
         playerSprite.position = position;
         handsSprite.position = position;
 
-        playerSprite.LookAt(mousePos, 100, delta);
-        handsSprite.LookAt(mousePos, 10, delta);
+        playerSprite.LookAt(mouseWorldPos, 100, delta);
+        handsSprite.LookAt(mouseWorldPos, 10, delta);
     }
 
     public void Draw()
