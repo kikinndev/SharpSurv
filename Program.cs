@@ -14,11 +14,11 @@ internal static class Program
     {
         Raylib.InitWindow(screenWidth, screenHeight, "Hello World");
 
-        Texture2D playerTex = Raylib.LoadTexture("Resources/player_up.png");
-        Texture2D playerHandsTex = Raylib.LoadTexture("Resources/player_hands.png");
-
         float scale = 3;
-        Vector2 playerPos = new Vector2(screenWidth / 2 - playerTex.Width * 3 / 2, screenHeight / 2 - playerTex.Height * 3 / 2);
+
+        Sprite playerSprite = new Sprite("Resources/player_up.png", new Vector2(screenWidth / 2, screenHeight / 2), scale);
+        Sprite playerHands = new Sprite("Resources/player_hands.png", new Vector2(screenWidth / 2, screenHeight / 2), scale);
+
         float speed = 200;
         float playerAngle = 0;
 
@@ -50,32 +50,27 @@ internal static class Program
                 direction = Vector2.Normalize(direction);
             }
 
-            playerPos += direction * speed * delta;
-
-            Vector2 lookDir = mousePos - playerPos;
+            Vector2 lookDir = mousePos - playerSprite.position;
             float angle = MathF.Atan2(lookDir.Y, lookDir.X) * Raylib.RAD2DEG;
             playerAngle = MathUtils.LerpAngle(playerAngle, angle, 10 * delta);
+
+            playerSprite.position += direction * speed * delta;
+            playerSprite.rotation = angle + 90;
+
+            playerHands.position = playerSprite.position;
+            playerHands.rotation = playerAngle + 90;
 
             Raylib.BeginDrawing();
             Raylib.ClearBackground(Color.White);
 
-            Rectangle playerSource = new Rectangle(0, 0, playerTex.Width, playerTex.Height);
-            Rectangle playerDest = new Rectangle(playerPos.X, playerPos.Y, playerTex.Width * scale, playerTex.Height * scale);
-            Vector2 playerOrigin = new Vector2(playerTex.Width * scale / 2, playerTex.Height * scale / 2);
-
-            Rectangle handsSource = new Rectangle(0, 0, playerHandsTex.Width, playerHandsTex.Height);
-            Rectangle handsDest = new Rectangle(playerPos.X, playerPos.Y, playerHandsTex.Width * scale, playerHandsTex.Height * scale);
-            Vector2 handsOrigin = new Vector2(playerHandsTex.Width * scale / 2, playerHandsTex.Height * scale / 2);
-
-            Raylib.DrawTexturePro(playerTex, playerSource, playerDest, playerOrigin, angle + 90, Color.White);
-            Raylib.DrawTexturePro(playerHandsTex, handsSource, handsDest, handsOrigin, playerAngle + 90, Color.White);
-
-            Raylib.DrawText("X: " + Math.Floor(playerPos.X) + " Y: " + Math.Floor(playerPos.Y), 12, 12, 20, Color.Black);
+            playerSprite.Draw();
+            playerHands.Draw();
 
             Raylib.EndDrawing();
         }
 
-        Raylib.UnloadTexture(playerTex);
+        playerSprite.Unload();
+        playerHands.Unload();
 
         Raylib.CloseWindow();
     }
