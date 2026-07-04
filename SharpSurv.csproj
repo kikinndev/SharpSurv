@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Raylib-cs" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <Content Include="Assets/**">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Textures\UI\crosshair.png" />
+    <Content Include="Assets\Textures\UI\grid.png" />
+    <Content Include="Assets\Textures\Entity\player.png" />
+    <Content Include="Assets\Textures\Entity\player_hands.png" />
+    <Content Include="Assets\Textures\Tiles\grass.png" />
+    <Content Include="Assets\Textures\Tiles\log.png" />
+    <Content Include="Assets\Textures\Tiles\missing.png" />
+    <Content Include="Assets\Textures\Tiles\table.png" />
+  </ItemGroup>
+
+</Project>

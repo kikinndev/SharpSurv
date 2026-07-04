@@ -5,6 +5,7 @@ namespace Main;
 public enum TileId
 {
     Grass,
+    Log,
     Table,
 }
 
@@ -14,9 +15,10 @@ public static class TileIdExtensions
     {
         return tileId switch
         {
-            TileId.Grass => "Resources/Tiles/grass.png",
-            TileId.Table => "Resources/Tiles/table.png",
-            _ => "Resources/Tiles/missing.png"
+            TileId.Grass => "Assets/Textures/Tiles/grass.png",
+            TileId.Log => "Assets/Textures/Tiles/log.png",
+            TileId.Table => "Assets/Textures/Tiles/table.png",
+            _ => "Assets/Textures/Tiles/missing.png"
         };
     }
 }

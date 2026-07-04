@@ -18,7 +18,7 @@ public class WorldInteraction
 
         if (Raylib.IsMouseButtonDown(MouseButton.Left))
         {
-            PlaceTile(TileId.Table, gridPos);
+            PlaceTile(TileId.Log, gridPos);
         }
 
         if (Raylib.IsMouseButtonDown(MouseButton.Right))

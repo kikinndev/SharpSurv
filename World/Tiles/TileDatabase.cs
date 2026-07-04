@@ -10,6 +10,7 @@ public static class TileDatabase
     public static void Load()
     {
         textures[TileId.Grass] = Raylib.LoadTexture(TileId.Grass.GetTexturePath());
+        textures[TileId.Log] = Raylib.LoadTexture(TileId.Log.GetTexturePath());
         textures[TileId.Table] = Raylib.LoadTexture(TileId.Table.GetTexturePath());
     }
 

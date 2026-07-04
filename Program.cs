@@ -48,7 +48,6 @@ internal static class Program
 
             Raylib.BeginDrawing();
             Raylib.ClearBackground(Color.White);
-
             Raylib.BeginMode2D(camera);
 
             Raylib.DrawCircle(100, 100, 50, Color.Red);

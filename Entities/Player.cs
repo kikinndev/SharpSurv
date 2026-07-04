@@ -14,8 +14,8 @@ public class Player
     public Player(Vector2 position)
     {
         this.position = position;
-        playerSprite = new Sprite("Resources/player.png", position, 3);
-        handsSprite = new Sprite("Resources/player_hands.png", position, 3);
+        playerSprite = new Sprite("Assets/Textures/Entity/player.png", position, 3);
+        handsSprite = new Sprite("Assets/Textures/Entity/player_hands.png", position, 3);
     }
 
     public void Update(Camera2D camera, float delta)
