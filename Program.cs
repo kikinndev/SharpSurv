@@ -13,12 +13,12 @@ internal static class Program
         Raylib.HideCursor();
 
         Crosshair crosshair = new Crosshair();
-        TileMap tileMap = new TileMap(128, 128);
-        Player player = new Player(new Vector2(GameConfig.CenterWidth, GameConfig.CenterHeight));
+        TileMap tileMap = new TileMap(16, 16);
+        Player player = new Player(new Vector2(GameConfig.GetCenterScreen().X, GameConfig.GetCenterScreen().Y));
 
         Camera2D camera = new Camera2D();
         camera.Target = player.position;
-        camera.Offset = new Vector2(GameConfig.CenterWidth, GameConfig.CenterHeight);
+        camera.Offset = new Vector2(GameConfig.GetCenterScreen().X, GameConfig.GetCenterScreen().Y);
         camera.Rotation = 0.0f;
         camera.Zoom = 1.0f;
 
@@ -33,10 +33,15 @@ internal static class Program
         {
             float delta = Raylib.GetFrameTime();
 
+            if (Raylib.IsKeyPressed(KeyboardKey.F11)) {
+                Raylib.ToggleFullscreen();
+            }
+
             crosshair.Update();
             player.Update(camera, delta);
 
             camera.Target = player.position;
+            camera.Offset = new Vector2(GameConfig.GetCenterScreen().X, GameConfig.GetCenterScreen().Y);
 
             gridIndicator.Update(camera);
             interaction.Update(gridIndicator.mouseWorldPos);
