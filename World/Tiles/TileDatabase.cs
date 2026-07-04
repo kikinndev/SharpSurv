@@ -5,27 +5,33 @@ namespace Main;
 
 public static class TileDatabase
 {
-    private static Dictionary<TileId, Texture2D> textures = new Dictionary<TileId, Texture2D>();
+    private static Dictionary<TileId, TileData> tileData = new Dictionary<TileId, TileData>();
 
     public static void Load()
     {
-        textures[TileId.Grass] = Raylib.LoadTexture(TileId.Grass.GetTexturePath());
-        textures[TileId.Log] = Raylib.LoadTexture(TileId.Log.GetTexturePath());
-        textures[TileId.Table] = Raylib.LoadTexture(TileId.Table.GetTexturePath());
+        Add(TileId.Grass, "Assets/Textures/Tiles/grass.png", false);
+        Add(TileId.Log, "Assets/Textures/Tiles/log.png", true);
+        Add(TileId.Table, "Assets/Textures/Tiles/table.png", true);
+    }
+
+    public static void Add(TileId id, string texturePath, bool isSolid)
+    {
+        Texture2D texture = Raylib.LoadTexture(texturePath);
+        tileData[id] = new TileData(texture, isSolid);
     }
 
     public static Texture2D GetTexture(TileId tileId)
     {
-        return textures[tileId];
+        return tileData[tileId].texture;
     }
 
     public static void Unload()
     {
-        foreach (Texture2D texture in textures.Values)
+        foreach (TileData data in tileData.Values)
         {
-            Raylib.UnloadTexture(texture);
+            Raylib.UnloadTexture(data.texture);
         }
 
-        textures.Clear();
+        tileData.Clear();
     }
 }
