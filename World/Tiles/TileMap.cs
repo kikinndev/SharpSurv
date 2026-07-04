@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using Raylib_cs;
+using System.Numerics;
 
 namespace Main;
 
@@ -33,21 +34,24 @@ public class TileMap
         }
     }
 
-    public bool IsSolidAtWorldPos(Vector2 worldPos)
+    public bool IsSolidAtRect(Rectangle playerRect)
     {
-        Vector2 gridPos = MathUtils.WorldToGrid(worldPos);
-
-        if (objectTiles.ContainsKey(gridPos))
+        foreach (Tile tile in objectTiles.Values)
         {
-            return TileDatabase.tileData[objectTiles[gridPos].id].isSolid;
+            if (!TileDatabase.tileData[tile.id].isSolid)
+            {
+                continue;
+            }
+
+            Rectangle tileRect = new Rectangle(tile.position.X, tile.position.Y, GameConfig.GridSize, GameConfig.GridSize);
+
+            if (Raylib.CheckCollisionRecs(playerRect, tileRect))
+            {
+                return true;
+            }
         }
 
-        if (worldTiles.ContainsKey(gridPos))
-        {
-            return TileDatabase.tileData[worldTiles[gridPos].id].isSolid;
-        }
-
-        return true;
+        return false;
     }
 
     public void Draw()

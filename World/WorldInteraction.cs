@@ -18,6 +18,7 @@ public class WorldInteraction
 
         if (Raylib.IsMouseButtonDown(MouseButton.Left))
         {
+            // TODO: Make player place different tiles
             PlaceTile(TileId.Log, gridPos);
         }
 

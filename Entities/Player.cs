@@ -6,7 +6,9 @@ namespace Main;
 public class Player
 {
     public Vector2 position;
-    public float speed = 250;
+    public float speed = 300;
+
+    Vector2 targetPosition;
 
     Sprite playerSprite;
     Sprite handsSprite;
@@ -14,6 +16,8 @@ public class Player
     public Player(Vector2 position)
     {
         this.position = position;
+        targetPosition = position;
+
         playerSprite = new Sprite("Assets/Textures/Entity/player.png", position, 3);
         handsSprite = new Sprite("Assets/Textures/Entity/player_hands.png", position, 3);
     }
@@ -41,17 +45,25 @@ public class Player
             direction.X += 1;
         }
 
-        Vector2 next_position = position + direction * speed * delta;
-        if (!tileMap.IsSolidAtWorldPos(next_position))
+        Vector2 next_position = targetPosition + direction * speed * delta;
+
+        if (!tileMap.IsSolidAtRect(GetHitbox(next_position)))
         {
-            position = next_position;
+            targetPosition = next_position;
         }
-        
+
+        position = Vector2.Lerp(position, targetPosition, 12.0f * delta);
+
         playerSprite.position = position;
         handsSprite.position = position;
 
         playerSprite.LookAt(mouseWorldPos, 20, delta);
         handsSprite.LookAt(mouseWorldPos, 10, delta);
+    }
+
+    private static Rectangle GetHitbox(Vector2 position)
+    {
+        return new Rectangle(position.X - 16, position.Y - 16, 32, 32);
     }
 
     public void Draw()
