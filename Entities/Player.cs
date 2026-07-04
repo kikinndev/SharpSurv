@@ -46,7 +46,7 @@ public class Player
         playerSprite.position = position;
         handsSprite.position = position;
 
-        playerSprite.LookAt(mouseWorldPos, 100, delta);
+        playerSprite.LookAt(mouseWorldPos, 20, delta);
         handsSprite.LookAt(mouseWorldPos, 10, delta);
     }
 

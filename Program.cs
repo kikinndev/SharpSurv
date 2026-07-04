@@ -22,6 +22,8 @@ internal static class Program
         camera.Rotation = 0.0f;
         camera.Zoom = 1.0f;
 
+        GridIndicator gridIndicator = new GridIndicator(camera);
+
         TileDatabase.Load();
         tileMap.GenerateWorld();
 
@@ -34,6 +36,8 @@ internal static class Program
 
             camera.Target = player.position;
 
+            gridIndicator.Update(camera);
+
             Raylib.BeginDrawing();
             Raylib.ClearBackground(Color.White);
 
@@ -41,6 +45,7 @@ internal static class Program
 
             Raylib.DrawCircle(100, 100, 50, Color.Red);
             tileMap.Draw();
+            gridIndicator.Draw();
             player.Draw();
 
             Raylib.EndMode2D();
@@ -54,9 +59,9 @@ internal static class Program
 
         crosshair.Unload();
         tileMap.Unload();
+        gridIndicator.Unload();
         player.Unload();
         
-
         Raylib.CloseWindow();
     }
 }
