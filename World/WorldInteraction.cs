@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace Main;
 
-public class WorldInteraction(TileMap tileMap)
+public class WorldInteraction(Player player, TileMap tileMap)
 {
     TileMap tileMap = tileMap;
 
@@ -14,7 +14,10 @@ public class WorldInteraction(TileMap tileMap)
         if (Raylib.IsMouseButtonDown(MouseButton.Left))
         {
             // TODO: Make player place different tiles
-            PlaceTile(TileId.Log, gridPos);
+            if (CanPlaceTile(gridPos))
+            {
+                PlaceTile(TileId.Log, gridPos);
+            }
         }
 
         if (Raylib.IsMouseButtonDown(MouseButton.Right))
@@ -35,5 +38,15 @@ public class WorldInteraction(TileMap tileMap)
         {
             tileMap.objectTiles.Remove(gridPos);
         }
+    }
+
+    public bool CanPlaceTile(Vector2 gridPos)
+    {
+        Vector2 worldPos = MathUtils.GridToWorld(gridPos);
+
+        Rectangle tileRect = new(worldPos.X, worldPos.Y, GameConfig.GridSize, GameConfig.GridSize);
+        Rectangle playerRect = player.GetInteractionHitbox(player.position);
+
+        return !Raylib.CheckCollisionRecs(tileRect, playerRect);
     }
 }

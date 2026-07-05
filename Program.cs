@@ -25,7 +25,7 @@ internal static class Program
 
         GridIndicator gridIndicator = new(camera);
 
-        WorldInteraction interaction = new(tileMap);
+        WorldInteraction interaction = new(player, tileMap);
 
         TileDatabase.Load();
         tileMap.GenerateWorld();
