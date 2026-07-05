@@ -45,11 +45,25 @@ public class Player
             direction.X += 1;
         }
 
-        Vector2 next_position = targetPosition + direction * speed * delta;
-
-        if (!tileMap.IsSolidAtRect(GetHitbox(next_position)))
+        if (direction.LengthSquared() > 0)
         {
-            targetPosition = next_position;
+            direction = Vector2.Normalize(direction);
+        }
+
+        Vector2 velocity = direction * speed * delta;
+
+        Vector2 nextX = new Vector2(targetPosition.X + velocity.X, targetPosition.Y);
+
+        if (!tileMap.IsSolidAtRect(GetHitbox(nextX)))
+        {
+            targetPosition.X = nextX.X;
+        }
+
+        Vector2 nextY = new Vector2(targetPosition.X, targetPosition.Y + velocity.Y);
+
+        if (!tileMap.IsSolidAtRect(GetHitbox(nextY)))
+        {
+            targetPosition.Y = nextY.Y;
         }
 
         position = Vector2.Lerp(position, targetPosition, 12.0f * delta);
