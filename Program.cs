@@ -67,7 +67,11 @@ internal static class Program
 
             Raylib.EndMode2D();
 
-            Raylib.DrawTexture(currentTileTexture, Raylib.GetMouseX() + 16, Raylib.GetMouseY() + 16, Color.White);
+            Rectangle source = new(interaction.currentRotation * GameConfig.TileSize, interaction.currentRotation * GameConfig.TileSize, GameConfig.TileSize, GameConfig.TileSize);
+            Rectangle dest = new(Raylib.GetMouseX() + 13, Raylib.GetMouseY() + 13, 16, 16);
+            Vector2 origin = Vector2.Zero;
+
+            Raylib.DrawTexturePro(currentTileTexture, source, dest, origin, 0, Color.White);
 
             rlImGui.Begin();
             for (int i = 0; i < player.inventory.slots.Length; i++)

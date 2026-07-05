@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace Main;
 
-public class Tile(TileId id, Vector2 position)
+public class Tile(TileId id, Vector2 position, int rotation)
 {
     public TileId id = id;
     public Vector2 position = position;
@@ -12,7 +12,7 @@ public class Tile(TileId id, Vector2 position)
     {
         Texture2D texture = TileDatabase.GetTexture(id);
 
-        Rectangle source = new(0, 0, texture.Width, texture.Height);
+        Rectangle source = new(rotation * GameConfig.TileSize, rotation * GameConfig.TileSize, GameConfig.TileSize, GameConfig.TileSize);
         Rectangle dest = new(position.X, position.Y, GameConfig.GridSize, GameConfig.GridSize);
         Vector2 origin = Vector2.Zero;
 

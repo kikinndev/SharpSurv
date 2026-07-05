@@ -5,6 +5,8 @@ namespace Main;
 
 public class WorldInteraction(Player player, TileMap tileMap)
 {
+    public int currentRotation = 0;
+
     TileMap tileMap = tileMap;
 
     public void Update(Vector2 mouseWorldPos)
@@ -30,12 +32,27 @@ public class WorldInteraction(Player player, TileMap tileMap)
         {
             BreakTile(gridPos);
         }
+
+        if (Raylib.IsKeyPressed(KeyboardKey.R))
+        {
+            int holdingSlot = player.inventory.holdingSlot;
+            InventorySlot currentSlot = player.inventory.Get(holdingSlot);
+            TileId holdingTile = currentSlot.tileId;
+
+            int maxRotation = TileDatabase.GetMaxRotation(holdingTile);
+
+            currentRotation += 1;
+            if (currentRotation >= maxRotation)
+            {
+                currentRotation = 0;
+            }
+        }
     }
 
     public void PlaceTile(TileId tileId, Vector2 gridPos)
     {
         Vector2 worldPos = MathUtils.GridToWorld(gridPos);
-        tileMap.objectTiles[gridPos] = new Tile(tileId, worldPos);
+        tileMap.objectTiles[gridPos] = new Tile(tileId, worldPos, currentRotation);
     }
 
     public void BreakTile(Vector2 gridPos)
@@ -43,7 +60,7 @@ public class WorldInteraction(Player player, TileMap tileMap)
         Vector2 worldPos = MathUtils.GridToWorld(gridPos);
         if (tileMap.objectTiles.ContainsKey(gridPos))
         {
-            tileMap.objectTiles[gridPos] = new Tile(TileId.Air, worldPos);
+            tileMap.objectTiles[gridPos] = new Tile(TileId.Air, worldPos, 0);
         }
     }
 

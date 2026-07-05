@@ -27,6 +27,11 @@ public static class TileDatabase
         return tileData[tileId].texture;
     }
 
+    public static int GetMaxRotation(TileId tileId)
+    {
+        return tileData[tileId].maxRotation;
+    }
+
     public static void Unload()
     {
         foreach (TileData data in tileData.Values)
