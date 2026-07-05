@@ -59,6 +59,6 @@ public class WorldInteraction(Player player, TileMap tileMap)
 
     public static bool IsEmpty(Vector2 gridPos, Dictionary<Vector2, Tile> objectTiles)
     {
-        return !objectTiles.TryGetValue(gridPos, out Tile tile) || tile.id == TileId.Air;
+        return !objectTiles.TryGetValue(gridPos, out var tile) || tile.id == TileId.Air;
     }
 }

@@ -45,6 +45,7 @@ public class Player
 
         inventory.Add(TileId.Log, 1);
         inventory.Add(TileId.Plank, 1);
+        inventory.Add(TileId.Table, 1);
     } 
 
     public void Update(Camera2D camera, TileMap tileMap, float delta)
