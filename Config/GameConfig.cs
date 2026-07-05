@@ -5,8 +5,8 @@ namespace Main;
 
 public static class GameConfig
 {
-    public static int WindowWidth = 800;
-    public static int WindowHeight = 600;
+    public static int WindowWidth = 1280;
+    public static int WindowHeight = 720;
 
     public static string WindowTitle = "SharpSurv";
     public static float Scale = 3.0f;

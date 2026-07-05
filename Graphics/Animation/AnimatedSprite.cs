@@ -16,6 +16,8 @@ public class AnimatedSprite(string texturePath, Vector2 position, float scale = 
     public int currentFrame = 0;
     public float elapsedTime = 0.0f;
 
+    public bool flipHorizontal = false;
+
     Texture2D texture = Raylib.LoadTexture(texturePath);
 
     public void AddAnimation(string name, Animation animation)
@@ -45,8 +47,11 @@ public class AnimatedSprite(string texturePath, Vector2 position, float scale = 
 
     public void Play(string animationName)
     {
-        currentAnimation = animationName;
-        currentFrame = 0;
+        if (animationName != currentAnimation)
+        {
+            currentAnimation = animationName;
+            currentFrame = 0;
+        }
     }
 
     public void Stop()
@@ -61,7 +66,14 @@ public class AnimatedSprite(string texturePath, Vector2 position, float scale = 
         {
             Animation animation = animations[currentAnimation];
 
-            Rectangle source = new(animation.frameSize.X * currentFrame, animation.frameSize.Y * animation.row, animation.frameSize.X, animation.frameSize.Y);
+            float sourceWidth = animation.frameSize.X;
+
+            if (flipHorizontal)
+            {
+                sourceWidth *= -1;
+            }
+
+            Rectangle source = new(animation.frameSize.X * currentFrame, animation.frameSize.Y * animation.row, sourceWidth, animation.frameSize.Y);
             Rectangle dest = new(position.X, position.Y, animation.frameSize.X * scale, animation.frameSize.Y * scale);
             Vector2 origin = new(animation.frameSize.X * scale / 2, animation.frameSize.Y * scale / 2);
 

@@ -17,10 +17,6 @@ internal static class Program
         TileMap tileMap = new(16, 16);
         Player player = new(new Vector2(GameConfig.GetCenterScreen().X, GameConfig.GetCenterScreen().Y));
 
-        AnimatedSprite testSprite = new("Assets/Textures/Entity/player.png", new Vector2(100, 100), GameConfig.Scale, 0.0f);
-        testSprite.AddAnimation("test", new Animation(new Vector2(16, 16), 0, 0.1f, new Vector2(0, 3)));
-        testSprite.Play("test");
-
         Camera2D camera = new();
         camera.Target = player.position;
         camera.Offset = new Vector2(GameConfig.GetCenterScreen().X, GameConfig.GetCenterScreen().Y);
@@ -45,8 +41,6 @@ internal static class Program
             crosshair.Update();
             player.Update(camera, tileMap, delta);
 
-            testSprite.Update(delta);
-
             camera.Target = player.position;
             camera.Offset = new Vector2(GameConfig.GetCenterScreen().X, GameConfig.GetCenterScreen().Y);
 
@@ -58,8 +52,8 @@ internal static class Program
             Raylib.BeginMode2D(camera);
 
             tileMap.Draw();
+            player.Draw();
             gridIndicator.Draw();
-            testSprite.Draw();
 
             Raylib.EndMode2D();
 
