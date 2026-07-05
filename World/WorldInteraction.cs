@@ -43,7 +43,7 @@ public class WorldInteraction(Player player, TileMap tileMap)
         Vector2 worldPos = MathUtils.GridToWorld(gridPos);
         if (tileMap.objectTiles.ContainsKey(gridPos))
         {
-            tileMap.objectTiles[gridPos] = new Tile(TileId.Grass, worldPos);
+            tileMap.objectTiles[gridPos] = new Tile(TileId.Air, worldPos);
         }
     }
 
@@ -57,7 +57,7 @@ public class WorldInteraction(Player player, TileMap tileMap)
         return !Raylib.CheckCollisionRecs(tileRect, playerRect);
     }
 
-    public bool IsEmpty(Vector2 gridPos, Dictionary<Vector2, Tile> objectTiles)
+    public static bool IsEmpty(Vector2 gridPos, Dictionary<Vector2, Tile> objectTiles)
     {
         return !objectTiles.TryGetValue(gridPos, out Tile tile) || tile.id == TileId.Air;
     }
