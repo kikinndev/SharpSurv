@@ -22,13 +22,13 @@ public class Player
         playerSprite = new AnimatedSprite("Assets/Textures/Entity/player.png", position, GameConfig.Scale);
         
         playerSprite.AddAnimation("idle_down", new Animation(
-            new Vector2(16, 16), 0, 0.2f, new Vector2(0, 4)
+            new Vector2(16, 16), 0, 0.2f, new Vector2(0, 6)
         ));
         playerSprite.AddAnimation("idle_up", new Animation(
-            new Vector2(16, 16), 1, 0.2f, new Vector2(0, 4)
+            new Vector2(16, 16), 1, 0.2f, new Vector2(0, 6)
         ));
         playerSprite.AddAnimation("idle_left", new Animation(
-            new Vector2(16, 16), 2, 0.2f, new Vector2(0, 4)
+            new Vector2(16, 16), 2, 0.2f, new Vector2(0, 6)
         ));
 
         playerSprite.AddAnimation("walk_down", new Animation(
@@ -38,7 +38,7 @@ public class Player
             new Vector2(16, 16), 5, 0.2f, new Vector2(0, 4)
         ));
         playerSprite.AddAnimation("walk_left", new Animation(
-            new Vector2(16, 16), 6, 0.2f, new Vector2(0, 4)
+            new Vector2(16, 16), 6, 0.1f, new Vector2(0, 8)
         ));
 
         playerSprite.Play("idle_down");
