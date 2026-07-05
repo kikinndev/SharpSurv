@@ -13,19 +13,19 @@ internal static class Program
         Raylib.InitWindow(GameConfig.WindowWidth, GameConfig.WindowHeight, GameConfig.WindowTitle);
         Raylib.HideCursor();
 
-        Crosshair crosshair = new Crosshair();
-        TileMap tileMap = new TileMap(16, 16);
-        Player player = new Player(new Vector2(GameConfig.GetCenterScreen().X, GameConfig.GetCenterScreen().Y));
+        Crosshair crosshair = new();
+        TileMap tileMap = new(16, 16);
+        Player player = new(new Vector2(GameConfig.GetCenterScreen().X, GameConfig.GetCenterScreen().Y));
 
-        Camera2D camera = new Camera2D();
+        Camera2D camera = new();
         camera.Target = player.position;
         camera.Offset = new Vector2(GameConfig.GetCenterScreen().X, GameConfig.GetCenterScreen().Y);
         camera.Rotation = 0.0f;
         camera.Zoom = 1.0f;
 
-        GridIndicator gridIndicator = new GridIndicator(camera);
+        GridIndicator gridIndicator = new(camera);
 
-        WorldInteraction interaction = new WorldInteraction(tileMap);
+        WorldInteraction interaction = new(tileMap);
 
         TileDatabase.Load();
         tileMap.GenerateWorld();

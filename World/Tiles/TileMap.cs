@@ -3,19 +3,13 @@ using System.Numerics;
 
 namespace Main;
 
-public class TileMap
+public class TileMap(int width, int height)
 {
-    public Dictionary<Vector2, Tile> worldTiles = new Dictionary<Vector2, Tile>();
-    public Dictionary<Vector2, Tile> objectTiles = new Dictionary<Vector2, Tile>();
+    public Dictionary<Vector2, Tile> worldTiles = new();
+    public Dictionary<Vector2, Tile> objectTiles = new();
 
-    int width;
-    int height;
-
-    public TileMap(int width, int height)
-    {
-        this.width = width;
-        this.height = height;
-    }
+    int width = width;
+    int height = height;
 
     public void GenerateWorld()
     {
@@ -26,7 +20,7 @@ public class TileMap
         {
             for (int x = 0; x < width; x++)
             {
-                Vector2 gridPos = new Vector2(x, y);
+                Vector2 gridPos = new(x, y);
                 Vector2 worldPos = MathUtils.GridToWorld(gridPos);
 
                 worldTiles[gridPos] = new Tile(TileId.Grass, worldPos);
@@ -43,7 +37,7 @@ public class TileMap
                 continue;
             }
 
-            Rectangle tileRect = new Rectangle(tile.position.X, tile.position.Y, GameConfig.GridSize, GameConfig.GridSize);
+            Rectangle tileRect = new(tile.position.X, tile.position.Y, GameConfig.GridSize, GameConfig.GridSize);
 
             if (Raylib.CheckCollisionRecs(playerRect, tileRect))
             {

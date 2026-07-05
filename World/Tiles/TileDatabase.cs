@@ -5,7 +5,7 @@ namespace Main;
 
 public static class TileDatabase
 {
-    public static Dictionary<TileId, TileData> tileData = new Dictionary<TileId, TileData>();
+    public static Dictionary<TileId, TileData> tileData = new();
 
     public static void Load()
     {

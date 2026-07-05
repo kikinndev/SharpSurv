@@ -9,7 +9,7 @@ public class GridIndicator
     public Vector2 mouseGridPos;
     public Vector2 mouseTileWorldPos;
 
-    Sprite gridIndicator = new Sprite("Assets/Textures/UI/grid.png", Vector2.Zero, GameConfig.Scale);
+    Sprite gridIndicator = new("Assets/Textures/UI/grid.png", Vector2.Zero, GameConfig.Scale);
 
     public GridIndicator(Camera2D camera)
     {

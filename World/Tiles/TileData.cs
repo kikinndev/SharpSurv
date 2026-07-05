@@ -2,14 +2,8 @@
 
 namespace Main;
 
-public class TileData
+public class TileData(Texture2D texture, bool isSolid)
 {
-    public Texture2D texture;
-    public bool isSolid;
-
-    public TileData(Texture2D texture, bool isSolid)
-    {
-        this.texture = texture;
-        this.isSolid = isSolid;
-    }
+    public Texture2D texture = texture;
+    public bool isSolid = isSolid;
 }

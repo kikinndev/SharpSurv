@@ -3,24 +3,15 @@ using System.Numerics;
 
 namespace Main;
 
-public class Player
+public class Player(Vector2 position)
 {
-    public Vector2 position;
+    public Vector2 position = position;
     public float speed = 300;
 
-    Vector2 targetPosition;
+    Vector2 targetPosition = position;
 
-    Sprite playerSprite;
-    Sprite handsSprite;
-
-    public Player(Vector2 position)
-    {
-        this.position = position;
-        targetPosition = position;
-
-        playerSprite = new Sprite("Assets/Textures/Entity/player.png", position, 3);
-        handsSprite = new Sprite("Assets/Textures/Entity/player_hands.png", position, 3);
-    }
+    Sprite playerSprite = new Sprite("Assets/Textures/Entity/player.png", position, 3);
+    Sprite handsSprite = new Sprite("Assets/Textures/Entity/player_hands.png", position, 3);
 
     public void Update(Camera2D camera, TileMap tileMap, float delta)
     {
@@ -52,14 +43,14 @@ public class Player
 
         Vector2 velocity = direction * speed * delta;
 
-        Vector2 nextX = new Vector2(targetPosition.X + velocity.X, targetPosition.Y);
+        Vector2 nextX = new(targetPosition.X + velocity.X, targetPosition.Y);
 
         if (!tileMap.IsSolidAtRect(GetHitbox(nextX)))
         {
             targetPosition.X = nextX.X;
         }
 
-        Vector2 nextY = new Vector2(targetPosition.X, targetPosition.Y + velocity.Y);
+        Vector2 nextY = new(targetPosition.X, targetPosition.Y + velocity.Y);
 
         if (!tileMap.IsSolidAtRect(GetHitbox(nextY)))
         {

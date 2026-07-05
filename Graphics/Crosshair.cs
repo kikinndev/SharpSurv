@@ -9,7 +9,7 @@ public class Crosshair
     const int GL_ONE_MINUS_SRC_ALPHA = 0x0303;
     const int GL_FUNC_ADD = 0x8006;
 
-    Sprite crosshair = new Sprite("Assets/Textures/UI/crosshair.png", new Vector2(0, 0), GameConfig.CrosshairScale);
+    Sprite crosshair = new("Assets/Textures/UI/crosshair.png", new Vector2(0, 0), GameConfig.CrosshairScale);
 
     public void Update()
     {

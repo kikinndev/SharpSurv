@@ -3,14 +3,9 @@ using System.Numerics;
 
 namespace Main;
 
-public class WorldInteraction
+public class WorldInteraction(TileMap tileMap)
 {
-    TileMap tileMap;
-
-    public WorldInteraction(TileMap tileMap)
-    {
-        this.tileMap = tileMap;
-    }
+    TileMap tileMap = tileMap;
 
     public void Update(Vector2 mouseWorldPos)
     {
