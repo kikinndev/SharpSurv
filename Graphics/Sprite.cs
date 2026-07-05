@@ -17,7 +17,7 @@ public class Sprite(string texturePath, Vector2 position, float scale = 1.0f, fl
         Rectangle dest = new(position.X, position.Y, texture.Width * scale, texture.Height * scale);
         Vector2 origin = new(texture.Width * scale / 2, texture.Height * scale / 2);
 
-        Raylib.DrawTexturePro(texture, source, dest, origin, rotation + 90, Color.White);
+        Raylib.DrawTexturePro(texture, source, dest, origin, rotation, Color.White);
     }
 
     public void LookAt(Vector2 target, float lerpSpeed, float delta)

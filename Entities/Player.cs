@@ -6,6 +6,7 @@ namespace Main;
 
 public class Player
 {
+    public Sprite playerShadow;
     public AnimatedSprite playerSprite;
     public Inventory inventory = new();
 
@@ -19,8 +20,9 @@ public class Player
         this.position = position;
         targetPosition = position;
 
+        playerShadow = new Sprite("Assets/Textures/shadow.png", position, GameConfig.Scale, 0);
         playerSprite = new AnimatedSprite("Assets/Textures/Entity/player.png", position, GameConfig.Scale);
-        
+
         playerSprite.AddAnimation("idle_down", new Animation(
             new Vector2(16, 16), 0, 0.2f, new Vector2(0, 6)
         ));
@@ -151,6 +153,7 @@ public class Player
 
         position = Vector2.Lerp(position, targetPosition, 12.0f * delta);
 
+        playerShadow.position = position + new Vector2(0, 24);
         playerSprite.position = position;
     }
 
@@ -166,11 +169,13 @@ public class Player
 
     public void Draw()
     {
+        playerShadow.Draw();
         playerSprite.Draw();
     }
 
     public void Unload()
     {
+        playerShadow.Unload();
         playerSprite.Unload();
     }
 }
