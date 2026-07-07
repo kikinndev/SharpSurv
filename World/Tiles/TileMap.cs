@@ -23,8 +23,8 @@ public class TileMap(int width, int height)
                 Vector2 gridPos = new(x, y);
                 Vector2 worldPos = MathUtils.GridToWorld(gridPos);
 
-                worldTiles[gridPos] = new Tile(TileId.Grass, worldPos, 0);
-                objectTiles[gridPos] = new Tile(TileId.Air, worldPos, 0);
+				worldTiles[gridPos] = new Tile(TileId.Grass, worldPos, 0, TileDatabase.GetHP(TileId.Grass));
+                objectTiles[gridPos] = new Tile(TileId.Air, worldPos, 0, TileDatabase.GetHP(TileId.Air));
             }
         }
     }
@@ -67,4 +67,15 @@ public class TileMap(int width, int height)
         worldTiles.Clear();
         objectTiles.Clear();
     }
+
+    public Tile GetTileAtWorldPos(Vector2 worldPos)
+    {
+        Vector2 gridPos = MathUtils.WorldToGrid(worldPos);
+        return objectTiles[gridPos];
+	}
+
+	public Tile GetTileAtGridPos(Vector2 gridPos)
+	{
+		return objectTiles[gridPos];
+	}
 }

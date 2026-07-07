@@ -3,10 +3,11 @@ using System.Numerics;
 
 namespace SharpSurv;
 
-public class Tile(TileId id, Vector2 position, int rotation)
+public class Tile(TileId id, Vector2 position, int rotation, int currentHp)
 {
     public TileId id = id;
-    public Vector2 position = position;
+    public int currentHp = currentHp;
+	public Vector2 position = position;
 
     public void Draw()
     {

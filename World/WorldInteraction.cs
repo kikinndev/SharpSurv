@@ -12,8 +12,9 @@ public class WorldInteraction(Player player, TileMap tileMap)
     public void Update(Vector2 mouseWorldPos)
     {
         Vector2 gridPos = MathUtils.WorldToGrid(mouseWorldPos);
+		Vector2 mouseTileWorldPos = MathUtils.GridToWorld(gridPos);
 
-        if (Raylib.IsMouseButtonDown(MouseButton.Left))
+		if (Raylib.IsMouseButtonDown(MouseButton.Left))
         {
             if (CanPlaceTile(gridPos))
             {
@@ -21,17 +22,26 @@ public class WorldInteraction(Player player, TileMap tileMap)
                 InventorySlot currentSlot = player.inventory.Get(holdingSlot);
                 TileId holdingTile = currentSlot.tileId;
 
-                if (holdingTile != TileId.Air && IsEmpty(gridPos, tileMap.objectTiles))
+                if (holdingTile != TileId.Air && IsEmpty(gridPos, tileMap.objectTiles) && Vector2.Distance(mouseTileWorldPos, player.position) < GameConfig.MaxDistance)
                 {
                     PlaceTile(holdingTile, gridPos);
                 }
             }
         }
 
-        if (Raylib.IsMouseButtonDown(MouseButton.Right))
+        if (Raylib.IsMouseButtonPressed(MouseButton.Right) && Vector2.Distance(mouseTileWorldPos, player.position) < GameConfig.MaxDistance)
         {
-            BreakTile(gridPos);
-        }
+            if (tileMap.GetTileAtWorldPos(mouseTileWorldPos).currentHp <= 1)
+            {
+                BreakTile(gridPos);
+            }
+            else
+            {
+                tileMap.GetTileAtWorldPos(mouseTileWorldPos).currentHp -= 1;
+                Console.WriteLine($"Breaking, HP: {tileMap.GetTileAtWorldPos(mouseTileWorldPos).currentHp}");
+            }
+
+		}
 
         if (Raylib.IsKeyPressed(KeyboardKey.R))
         {
@@ -52,7 +62,9 @@ public class WorldInteraction(Player player, TileMap tileMap)
     public void PlaceTile(TileId tileId, Vector2 gridPos)
     {
         Vector2 worldPos = MathUtils.GridToWorld(gridPos);
-        tileMap.objectTiles[gridPos] = new Tile(tileId, worldPos, currentRotation);
+        int tileHp = TileDatabase.GetHP(tileId);
+        Console.WriteLine($"Placed tile with hp {tileHp}");
+		tileMap.objectTiles[gridPos] = new Tile(tileId, worldPos, currentRotation, tileHp);
     }
 
     public void BreakTile(Vector2 gridPos)
@@ -60,7 +72,7 @@ public class WorldInteraction(Player player, TileMap tileMap)
         Vector2 worldPos = MathUtils.GridToWorld(gridPos);
         if (tileMap.objectTiles.ContainsKey(gridPos))
         {
-            tileMap.objectTiles[gridPos] = new Tile(TileId.Air, worldPos, 0);
+			tileMap.objectTiles[gridPos] = new Tile(TileId.Air, worldPos, 0, TileDatabase.GetHP(TileId.Air));
         }
     }
 

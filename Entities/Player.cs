@@ -169,7 +169,7 @@ public class Player
 
     public void Draw()
     {
-        playerShadow.Draw();
+        playerShadow.Draw(Color.White);
         playerSprite.Draw();
     }
 

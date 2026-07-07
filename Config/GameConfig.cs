@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace SharpSurv;
 
-public static class GameConfig
+public class GameConfig
 {
     public static int WindowWidth = 1280;
     public static int WindowHeight = 720;
@@ -14,6 +14,8 @@ public static class GameConfig
 
     public static float TileSize = 16.0f;
     public static float GridSize = TileSize * Scale;
+
+    public static int MaxDistance = 256;
 
     public static Vector2 GetCenterScreen()
     {

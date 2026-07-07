@@ -1,5 +1,4 @@
-﻿using System.Net.NetworkInformation;
-using System.Numerics;
+﻿using System.Numerics;
 using ImGuiNET;
 using Raylib_cs;
 using rlImGui_cs;
@@ -53,7 +52,7 @@ internal static class Program
             ImGuiIOPtr io = ImGui.GetIO();
             if (!io.WantCaptureMouse)
             {
-                gridIndicator.Update(camera);
+                gridIndicator.Update(camera, player);
                 interaction.Update(gridIndicator.mouseWorldPos);
             }
 

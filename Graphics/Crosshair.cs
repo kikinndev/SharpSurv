@@ -20,7 +20,7 @@ public class Crosshair
     {
         Rlgl.SetBlendFactors(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA, GL_FUNC_ADD);
         Raylib.BeginBlendMode(BlendMode.Custom);
-        crosshair.Draw();
+        crosshair.Draw(Color.White);
         Raylib.EndBlendMode();
     }
 

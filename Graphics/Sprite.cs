@@ -11,13 +11,13 @@ public class Sprite(string texturePath, Vector2 position, float scale = 1.0f, fl
     public float scale = scale;
     public float rotation = rotation;
 
-    public void Draw()
+    public void Draw(Color color)
     {
         Rectangle source = new(0, 0, texture.Width, texture.Height);
         Rectangle dest = new(position.X, position.Y, texture.Width * scale, texture.Height * scale);
         Vector2 origin = new(texture.Width * scale / 2, texture.Height * scale / 2);
 
-        Raylib.DrawTexturePro(texture, source, dest, origin, rotation, Color.White);
+        Raylib.DrawTexturePro(texture, source, dest, origin, rotation, color);
     }
 
     public void LookAt(Vector2 target, float lerpSpeed, float delta)
