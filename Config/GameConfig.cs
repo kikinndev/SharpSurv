@@ -17,6 +17,8 @@ public class GameConfig
 
     public static int MaxDistance = 256;
 
+    public static float BreakingSpeed = 0.4f;
+
     public static Vector2 GetCenterScreen()
     {
         return new Vector2(Raylib.GetScreenWidth() / 2, Raylib.GetScreenHeight() / 2);

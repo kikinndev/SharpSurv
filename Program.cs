@@ -53,7 +53,7 @@ internal static class Program
             if (!io.WantCaptureMouse)
             {
                 gridIndicator.Update(camera, player);
-                interaction.Update(gridIndicator.mouseWorldPos);
+                interaction.Update(gridIndicator.mouseWorldPos, delta);
             }
 
             Raylib.BeginDrawing();
@@ -76,10 +76,10 @@ internal static class Program
             for (int i = 0; i < player.inventory.slots.Length; i++)
             {
                 InventorySlot slot = player.inventory.Get(i);
-                ImGui.Text($"Slot: {i + 1} | {slot.tileId}");
+                ImGui.Text($"{i + 1} | {slot.tileId}");
             }
             ImGui.NewLine();
-            ImGui.Text($"Current Slot: {player.inventory.holdingSlot + 1}");
+            ImGui.Text($"Holding Item: {player.inventory.holdingSlot + 1} | {player.inventory.Get(player.inventory.holdingSlot).tileId}");
             rlImGui.End();
 
             Raylib.EndDrawing();

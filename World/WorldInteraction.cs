@@ -7,9 +7,11 @@ public class WorldInteraction(Player player, TileMap tileMap)
 {
     public int currentRotation = 0;
 
+    float breakingElapsedTime = 0;
+
     TileMap tileMap = tileMap;
 
-    public void Update(Vector2 mouseWorldPos)
+    public void Update(Vector2 mouseWorldPos, float delta)
     {
         Vector2 gridPos = MathUtils.WorldToGrid(mouseWorldPos);
 		Vector2 mouseTileWorldPos = MathUtils.GridToWorld(gridPos);
@@ -29,18 +31,14 @@ public class WorldInteraction(Player player, TileMap tileMap)
             }
         }
 
-        if (Raylib.IsMouseButtonPressed(MouseButton.Right) && Vector2.Distance(mouseTileWorldPos, player.position) < GameConfig.MaxDistance)
+        if (Raylib.IsMouseButtonDown(MouseButton.Right) && Vector2.Distance(mouseTileWorldPos, player.position) < GameConfig.MaxDistance)
         {
-            if (tileMap.GetTileAtWorldPos(mouseTileWorldPos).currentHp <= 1)
+            breakingElapsedTime += delta;
+            if (breakingElapsedTime > GameConfig.BreakingSpeed)
             {
+                breakingElapsedTime = 0;
                 BreakTile(gridPos);
             }
-            else
-            {
-                tileMap.GetTileAtWorldPos(mouseTileWorldPos).currentHp -= 1;
-                Console.WriteLine($"Breaking, HP: {tileMap.GetTileAtWorldPos(mouseTileWorldPos).currentHp}");
-            }
-
 		}
 
         if (Raylib.IsKeyPressed(KeyboardKey.R))
