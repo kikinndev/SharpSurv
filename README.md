@@ -24,8 +24,8 @@ Clone the repo.
 Run these to build the project & install raylib-cs, rlImGui-cs.
 ```bash
   dotnet build
-  dotnet package install raylib-cs
-  dotnet package install rlImGui-cs
+  dotnet package add raylib-cs
+  dotnet package add rlImGui-cs
 ```
 
 Open any C# code editor and open the solution. Run with F5.
