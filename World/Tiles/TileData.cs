@@ -1,6 +1,6 @@
 ﻿using Raylib_cs;
 
-namespace Main;
+namespace SharpSurv;
 
 public class TileData(Texture2D texture, bool isSolid, int maxRotation = 4)
 {

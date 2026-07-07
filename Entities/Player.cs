@@ -2,7 +2,7 @@
 using System.Numerics;
 using System.Runtime.CompilerServices;
 
-namespace Main;
+namespace SharpSurv;
 
 public class Player
 {

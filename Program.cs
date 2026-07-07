@@ -4,7 +4,7 @@ using ImGuiNET;
 using Raylib_cs;
 using rlImGui_cs;
 
-namespace Main;
+namespace SharpSurv;
 
 internal static class Program
 {

@@ -1,7 +1,7 @@
 ﻿using Raylib_cs;
 using System.Numerics;
 
-namespace Main;
+namespace SharpSurv;
 
 public class Sprite(string texturePath, Vector2 position, float scale = 1.0f, float rotation = 0.0f)
 {

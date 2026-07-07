@@ -1,4 +1,4 @@
-﻿namespace Main;
+﻿namespace SharpSurv;
 
 public class InventorySlot()
 {

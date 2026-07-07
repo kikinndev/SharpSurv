@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace Main;
+namespace SharpSurv;
 
 public class Animation(Vector2 frameSize, int row, float speed, Vector2 position)
 {

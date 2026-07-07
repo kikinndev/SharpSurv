@@ -1,7 +1,7 @@
 ﻿using Raylib_cs;
 using System.Numerics;
 
-namespace Main;
+namespace SharpSurv;
 
 public class Tile(TileId id, Vector2 position, int rotation)
 {

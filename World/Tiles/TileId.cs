@@ -1,6 +1,6 @@
 ﻿using System.Resources;
 
-namespace Main;
+namespace SharpSurv;
 
 public enum TileId
 {
